@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="IE=edge" http-equiv="X-UA-Compatible" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>iTunes Search - by 010 Pixel</title>
+
+<!-- jQuery -->
+<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+
+<!-- BootStrap -->
+<link rel="stylesheet" href="css/bootstrap-3.1.1.min.css" />
+<script type="text/javascript" src="js/bootstrap-3.1.1.min.js"></script>
+
+<!-- AngularJS -->
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+<script type="text/javascript" src="js/route.js"></script>
+
+<!-- Main CSS -->
+<link rel="stylesheet" type="text/css" href="css/chat.css">
+
+<!-- AutoExpanding Textarea -->
+<script type="text/javascript" src="js/expanding.js"></script>
+
+<script>
+</script>
+
+</head>
+
+<body>
+    <div ng-app="notes">
+        
+    	<div ng-controller="chatCtrl">
+
+            <div class="page-header">
+                <h1>{{sitename}} <small>{{author}}</small></h1>
+            </div>
+
+            <div ng-show="processing" class="loading"></div>
+
+            <div class="chat-container">
+                <div class="chat clearfix" ng-show="!processing">
+                    
+                    <div class="chat-list">
+                        <ul>
+                            <li ng-repeat="result in chats" ng-show="hasChats">
+                                <div chatid="{{result.id}}" ng-click="loadMessages({{result.id}})" class="item {{result.class}}"><img src="http://placehold.it/48x48" class="img-circle"> {{result.name}}</div>
+                            </li>
+                            <form ng-submit="createChat(chat_form,'form_data')">
+                            <li>
+                                <div class="new-chat-form"><img src="http://placehold.it/48x48" class="img-circle"> <input type="text" placeholder="New Chat..." ng-model="chat_name" required /></div>
+                            </li>
+                            </form>
+                        </ul>
+                    </div>
+                    
+                    <div class="messages" ng-show="hasMessages">
+                    	<div>&nbsp;&nbsp;&nbsp;<button type="button" class="btn back-to-list btn-default">Back</button></div>
+                        <h1>{{data.chat.name}}</h1>
+                        <ul>
+                            <li ng-repeat="result in messages">
+                                <div class="time" ng-show="result.timeago"><span>{{result.timeago}}</span></div>
+                                <div class="{{result.class}}">{{result.msg}}<small>{{result.timestamp*1000 | date:'H:mm'}}</small></div>
+                            </li>
+                        </ul>
+                        <div class="input">
+                            <form name="msgs_form" ng-submit="submitData(chat_form,'form_data')">
+                                <textarea placeholder="enter text here.." class="form-control expanding" rows="3" ng-model="form_message" required ></textarea>
+                                <button type="submit" class="btn btn-success btn-block" ng-disabled="chat_form.$invalid">Block level button</button>
+                            </form>
+                            <!--textarea id="submitDebugText2">{{form_data | json}}</textarea-->
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+            
+        </div>    
+    </div>
+    
+</body>
+</html>

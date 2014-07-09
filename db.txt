@@ -1,0 +1,14 @@
+User
+- ID
+- email
+- Password
+
+chats
+- id
+- userid
+
+messagees
+- id
+- chatid
+- msg
+- timestamp
