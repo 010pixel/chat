@@ -38,6 +38,8 @@
 			$chat_id = $_GET['chat_id'];
 			
 			$result = $this->db->insert('messages', array('msg'=>$message, 'chat_id'=>$chat_id, 'user_id'=>$this->current_user_id), array('%s','%d','%d'));
+			$update = $this->db->update('chat`.`chats', array('timestamp'=>date("Y-m-d H:i:s")), array('id'=>$chat_id));
+			$this->page_add_value('update',$update);
 			if ( $result !== false && $result !== -1 ) {
 				$this->page_add_value('result','1');
 				$this->get_messages($chat_id,mysql_insert_id());
@@ -58,9 +60,6 @@
 				$sql = "SELECT * FROM chat.chats WHERE `id` IN (SELECT chat_id FROM chat.chat_user WHERE `user_id` = '". $this->current_user_id ."');";
 			}
 			$results = $this->db->get_results($sql,ARRAY_A);
-			if ( $chat_id === NULL ) {
-				$results[0]['class'] = 'active';
-			}
 			$this->page_add_value('sql',$sql);
 			$this->page_add_value('data',$results);
 			$this->page_add_value('resultCount',$this->db->num_rows);

@@ -487,6 +487,8 @@ class My_DB {
 		$wheres = $this->set_data_format($where, $where_format);
 		
 		$sql = "UPDATE `$table` SET " . implode( ', ', $bits ) . ' WHERE ' . implode( ' AND ', $wheres ) . ';';
+		return $this->prepare( $sql, array_merge( array_values( $data ), array_values( $where ) ) );
+		return;
 		return $this->query( $this->prepare( $sql, array_merge( array_values( $data ), array_values( $where ) ) ) );
 	}
 

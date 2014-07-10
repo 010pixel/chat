@@ -22,12 +22,6 @@
 <!-- Main CSS -->
 <link rel="stylesheet" type="text/css" href="css/chat.css">
 
-<!-- AutoExpanding Textarea -->
-<script type="text/javascript" src="js/expanding.js"></script>
-
-<script>
-</script>
-
 </head>
 
 <body>
@@ -47,38 +41,22 @@
                     <div class="chat-list">
                         <ul>
                             <li ng-repeat="result in chats" ng-show="hasChats">
-                                <div chatid="{{result.id}}" ng-click="loadMessages({{result.id}})" class="item {{result.class}}"><img src="http://placehold.it/48x48" class="img-circle"> {{result.name}}</div>
+                                <div chatid="{{result.id}}" id="chatid_{{result.id}}" ng-click="loadMessages({{result.id}})" class="item {{result.class}}"><img src="http://placehold.it/48x48" class="img-circle"> {{result.name}}</div>
                             </li>
                             <form ng-submit="createChat(chat_form,'form_data')">
                             <li>
-                                <div class="new-chat-form"><img src="http://placehold.it/48x48" class="img-circle"> <input type="text" placeholder="New Chat..." ng-model="chat_name" required /></div>
+                                <div class="new-chat-form"><img src="http://placehold.it/48x48" class="img-circle"> <input type="text" placeholder="{{newnote_placeholder}}" ng-model="chat_name" required /></div>
                             </li>
                             </form>
                         </ul>
                     </div>
                     
-                    <div class="messages" ng-show="hasMessages">
-                    	<div>&nbsp;&nbsp;&nbsp;<button type="button" class="btn back-to-list btn-default">Back</button></div>
-                        <h1>{{data.chat.name}}</h1>
-                        <ul>
-                            <li ng-repeat="result in messages">
-                                <div class="time" ng-show="result.timeago"><span>{{result.timeago}}</span></div>
-                                <div class="{{result.class}}">{{result.msg}}<small>{{result.timestamp*1000 | date:'H:mm'}}</small></div>
-                            </li>
-                        </ul>
-                        <div class="input">
-                            <form name="msgs_form" ng-submit="submitData(chat_form,'form_data')">
-                                <textarea placeholder="enter text here.." class="form-control expanding" rows="3" ng-model="form_message" required ></textarea>
-                                <button type="submit" class="btn btn-success btn-block" ng-disabled="chat_form.$invalid">Block level button</button>
-                            </form>
-                            <!--textarea id="submitDebugText2">{{form_data | json}}</textarea-->
-                        </div>
-                    </div>
-                
+                    <div ng-view></div>
+                    
                 </div>
             </div>
-            
         </div>    
+
     </div>
     
 </body>

@@ -16,8 +16,8 @@ button {margin:10px 0 20px;}
 
 .chat-list {width:50%; margin:0px 0% 0 0;}
 .chat-list ul {list-style:none; margin:0px 0; padding:0;}
-.chat-list ul li > div {padding:5px; background-color:#428bca; color:#fff;}
-.chat-list ul li > div:hover {background-color:#227cca; cursor:pointer;}
+.chat-list ul li > div {padding:5px; background-color:#428bca; color:#fff; transition: all 1s ease;}
+.chat-list ul li > div:hover {background-color:#227cca; cursor:pointer; transition: all 0.3s ease;}
 .chat-list ul li > div.active { background-color:#5bc0de; font-weight:bold;}
 .chat-list ul li img {margin:0 5px 0 0;}
 .chat-list ul li a {color:inherit;}
