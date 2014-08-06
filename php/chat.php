@@ -22,10 +22,34 @@
 			$result1 = $this->db->insert('chats', array('name'=>$chat_name, 'owner_user_id'=>$this->current_user_id), array('%s','%d'));
 			$new_chat_id = $this->db->insert_id;
 			$result2 = $this->db->insert('chat_user', array('chat_id'=>$new_chat_id, 'user_id'=>$this->current_user_id), array('%d','%d'));
-			if ( $result1 !== false && $result1 !== -1 && $result2 !== false && $result2 !== -1 ) {
+			if ( $result1 !== false && $result1 !== 0 && $result1 !== -1 && $result2 !== false && $result2 !== -1 && $result2 !== 0 ) {
 				$this->db->commit_transaction();
 				$this->page_add_value('result','1');
 				$this->get_chat_list($new_chat_id);
+			} else {
+				$this->db->rollback_transaction();
+				$this->page_add_value('result','0');
+			}
+		}
+		
+		public function delete_chat () {
+			if ( $_SESSION['user']['d'] != 1 ) return;
+			$this->ajax_load = true;
+			if ($_SERVER["REQUEST_METHOD"] !== "POST") return;
+			$chat_id = $_GET['chat_id'];
+			
+			$this->db->begin_transaction();
+			$result1 = $this->db->delete('messages', array('chat_id'=>$chat_id), array('%d'));
+			$result2 = $this->db->delete('chat_user', array('chat_id'=>$chat_id), array('%d'));
+			$result3 = $this->db->delete('chats', array('id'=>$chat_id,'owner_user_id'=>$this->current_user_id), array('%d'));
+			
+			$this->page_add_value('chat_id',$chat_id);
+			$this->page_add_value('result1',$result1);
+			$this->page_add_value('result2',$result2);
+			$this->page_add_value('result3',$result3);
+			if ( $result1 !== false && $result1 !== -1 && $result2 !== false && $result2 !== 0 && $result2 !== -1 && $result3 !== false && $result3 !== 0 && $result3 !== -1 ) {
+				$this->db->commit_transaction();
+				$this->page_add_value('result','1');
 			} else {
 				$this->db->rollback_transaction();
 				$this->page_add_value('result','0');

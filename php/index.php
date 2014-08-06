@@ -28,6 +28,8 @@
 		$chat->submit_msg();
 	} elseif ($page->process == 'create_chat' ) {
 		$chat->create_chat();
+	} elseif ($page->process == 'delete_chat' ) {
+		$chat->delete_chat();
 	}
 
 	$page->return_values();

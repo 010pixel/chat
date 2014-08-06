@@ -34,10 +34,46 @@ notesApp.controller('chatCtrl', function ($scope, $http) {
 		});
     };
 	
+	// Function to Submit Message
+	$scope.deleteChat = function (chat_id, resultVarName) {
+		
+		var params = {
+			chat_id: chat_id
+		}
+		
+		var config = {
+			params: params
+		};
+	
+		$http.post("php/?process=delete_chat", params, config)
+		.success(function (data, status, headers, config)
+		{
+			console.log(data);
+			$scope[resultVarName] = data;
+			if ( data.result == 1 ) {
+				var indexOfDelete = $("#chatid_" + chat_id).index();
+				//$("#chatid_" + chat_id).remove();
+				$scope.chats.splice(indexOfDelete,1);
+				console.log($scope.chats);
+			} else {
+				alert("Please try again. \n\n If this is not the first time you are seeing this message means you might not have permission to write messages.");
+			}
+		})
+		.error(function (data, status, headers, config)
+		{
+			console.log("Error...");
+			$scope[resultVarName] = "SUBMIT ERROR";
+		});
+	};
+	
 	$scope.loadChatList();
 	
 	$scope.general_functions = function () {
 		$(document).ready(function(e) {
+			$("body").on('click','.delete',function(){
+				var chatid =  $(this).attr("chatid");
+				$scope.deleteChat(chatid);
+			});
 			$("body").on('click','.chat-list li > div.item',function(){
 				$(this).addClass("active");
 				var chatid =  $(this).attr("chatid");

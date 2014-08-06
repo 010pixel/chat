@@ -61,10 +61,10 @@
                                 <span>
 									<?php
 										if ( $_SESSION['user']['w'] == true ) {
-											echo '<a href="#">Edit</a>';
+											echo '<a href="#" chatid="{{result.id}}">Edit</a>';
 										}
 										if ( $_SESSION['user']['w'] == true ) {
-											echo '<a href="#" class="delete">Delete</a>';
+											echo '<a href="#" class="delete" chatid="{{result.id}}">Delete</a>';
 										}
                                     ?>
                                 </span>
