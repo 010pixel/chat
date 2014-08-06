@@ -1,5 +1,8 @@
 html {background:#fff;}
 body{margin:50px;}
+@media (max-width: 1024px) {
+	body{margin:10px;}
+}
 h1 {text-align:center; text-transform:capitalize;}
 .page-header h1 {text-transform:none;}
 .clearboth {clear:both;}
@@ -14,13 +17,21 @@ button {margin:10px 0 20px;}
 .chat .chat-list,
 .chat .messages {display:block; float:left;}
 
-.chat-list {width:50%; margin:0px 0% 0 0;}
+.chat-list {width:50%; overflow:hidden; margin:0px 0% 0 0;}
 .chat-list ul {list-style:none; margin:0px 0; padding:0;}
-.chat-list ul li > div {padding:5px; background-color:#428bca; color:#fff; transition: all 1s ease;}
-.chat-list ul li > div:hover {background-color:#227cca; cursor:pointer; transition: all 0.3s ease;}
+.chat-list ul li > div {padding:5px; background-color:#428bca; cursor:pointer; color:#fff; transition: all 1s ease;}
+.chat-list ul li:hover > div {background-color:#227cca; transition: all 0.3s ease;}
 .chat-list ul li > div.active { background-color:#5bc0de; font-weight:bold;}
 .chat-list ul li img {margin:0 5px 0 0;}
 .chat-list ul li a {color:inherit;}
+
+/* For showing extra options */
+.chat-list ul li {position:relative; width:calc(100% + 200px); transition: all .5s ease;}
+.chat-list ul li:hover {width:100%;}
+.chat-list ul li span {display:none;}
+.chat-list ul li span {display:block; border:1px solid #DDD; position:absolute; right:0%; top:0px;}
+.chat-list ul li span a {display:inline-block; float:left; background:#999; color:#fff; line-height:56px; padding:0 10px;}
+.chat-list ul li span a.delete {background:#F00;}
 
 .messages {width:50%; font-size:12px;;}
 .messages ul {list-style:none; margin:0; padding:5px; background:#fff; max-height:300px; overflow:auto}

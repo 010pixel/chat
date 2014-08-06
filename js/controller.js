@@ -81,7 +81,7 @@ notesApp.controller('chatCtrl', function ($scope, $http) {
 					console.log($scope.chats);
 				}
 			} else {
-				alert("Please try again.");
+				alert("Please try again. \n\n If this is not the first time you are seeing this message means you might not have permission to create chat.");
 			}
 		})
 		.error(function (data, status, headers, config)
@@ -157,7 +157,7 @@ notesApp.controller('messageCtrl', function ($scope, $http, $routeParams) {
 				$scope.messages.push(data.data[0]);
 				console.log($scope.messages);
 			} else {
-				alert("Please try again.");
+				alert("Please try again. \n\n If this is not the first time you are seeing this message means you might not have permission to write messages.");
 			}
 		})
 		.error(function (data, status, headers, config)

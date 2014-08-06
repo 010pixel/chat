@@ -13,16 +13,12 @@
 	}
 ?>
 <?php
-	$_SESSION['user_id'] = '1';
-	$_SESSION['chat_id'] = '2';
-?>
-<?php
 	$page = new my_process();
 	$page->process = @$_GET['process'];
 	$page->check_process();
 	
 	$chat = new chat($db);
-	$chat->current_user_id = $_SESSION['user_id'];
+	$chat->current_user_id = $_SESSION['user']['id'];
 
 	if ($page->process == 'get_chat' ) {
 		$chat->get_chat(@$_GET['id']);

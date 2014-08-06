@@ -13,6 +13,7 @@
 		}
 		
 		public function create_chat () {
+			if ( !$_SESSION['user']['w'] ) return;
 			$this->ajax_load = true;
 			if ($_SERVER["REQUEST_METHOD"] !== "POST") return;
 			$chat_name = $_GET['chat_name'];
@@ -32,6 +33,7 @@
 		}
 		
 		public function submit_msg () {
+			if ( !$_SESSION['user']['w'] ) return;
 			$this->ajax_load = true;
 			if ($_SERVER["REQUEST_METHOD"] !== "POST") return;
 			$message = $_GET['message'];
