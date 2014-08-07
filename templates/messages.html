@@ -4,7 +4,7 @@
                         <ul>
                             <li ng-repeat="result in messages">
                                 <div class="time" ng-show="result.timeago"><span>{{result.timeago}}</span></div>
-                                <div class="{{result.class}}"><pre>{{result.msg}}</pre><small>{{result.timestamp*1000 | date:'H:mm'}}</small></div>
+                                <div class="{{result.class}}" ng-bind-html-unsafe="result.msg"><pre class="msg-pre">{{result.msg}}</pre><small>{{result.timestamp*1000 | date:'H:mm'}}</small></div>
                             </li>
                         </ul>
                         <div class="input">

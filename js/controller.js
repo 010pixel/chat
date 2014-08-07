@@ -135,6 +135,14 @@ notesApp.controller('messageCtrl', function ($scope, $http, $routeParams) {
 	$scope.hasMessages = false;
 	$scope.hasChats = false;
 	
+	$scope.scrollToBottom = function (delayAfter) {
+		setTimeout(function() {
+			$('.messages ul').stop().animate({
+			  scrollTop: $('.messages ul')[0].scrollHeight
+			}, 1000);
+		}, delayAfter);
+	}
+	
 	$scope.loadMessages = function(id) {
 		
 		$scope.processing = true;
@@ -153,6 +161,7 @@ notesApp.controller('messageCtrl', function ($scope, $http, $routeParams) {
 			$scope.hasMessages = true;
 			$("#chatid_"+ id +"").addClass("active");
 			$(".chat").addClass("active-chat");
+			$scope.scrollToBottom(500);
 
 			$scope.processing = false;
 		});
@@ -191,6 +200,7 @@ notesApp.controller('messageCtrl', function ($scope, $http, $routeParams) {
 			if ( data.result == 1 ) {
 				$scope.form_message = null;
 				$scope.messages.push(data.data[0]);
+				$scope.scrollToBottom(100);
 				console.log($scope.messages);
 			} else {
 				alert("Please try again. \n\n If this is not the first time you are seeing this message means you might not have permission to write messages.");

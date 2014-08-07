@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 <?php
+	include("php/timezone.php");
 	define("DB_NAME","chat");
 	define('ROOT_DIR_URL', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http' . '://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['SCRIPT_NAME']) . '/' );
 ?>

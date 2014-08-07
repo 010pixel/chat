@@ -1,16 +1,10 @@
 <?php session_start(); ?>
 <?php
+	include("timezone.php");
 	include("gf.php");
-	include("db.php");
 	include("process.php");
 	include("chat.php");
-?>
-<?php
-	$db = new My_DB('root', 'password', 'chat', 'localhost');
-	
-	if ( !$db ) {
-		 die('Could not connect: ' . mysql_error());
-	}
+	include("connection.php");
 ?>
 <?php
 	$page = new my_process();
@@ -32,5 +26,6 @@
 		$chat->delete_chat();
 	}
 
+	$page->add_value("timezone",date_default_timezone_get());
 	$page->return_values();
 ?>

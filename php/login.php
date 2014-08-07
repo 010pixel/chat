@@ -1,5 +1,5 @@
 <?php
-	include("db.php");
+	include("connection.php");
 	$err_msg = '';
 	$redirectURL = isset($_GET['url']) ? $_GET['url'] : "index.php";
 	if(isset($_POST['sublogin'])){
@@ -11,10 +11,7 @@
 	   		$err_msg = "Please try again.";
 		} else {
 			
-			$db = new My_DB('root', 'password', 'chat', 'localhost');
-			if ( !$db ) { die('Could not connect: ' . mysql_error()); }
-			
-			$sql = "SELECT * from `". DB_NAME ."`.`users` WHERE `email` = '". $username ."' AND `password` = '". $password ."' LIMIT 1";
+			$sql = "SELECT * from `". DB_NAME ."`.`users` WHERE `email` = '". $username ."' AND `password` = '". md5($password) ."' LIMIT 1";
 			$results = $db->get_results($sql,ARRAY_A);
 			$_SESSION['user'] = $results[0];
 			

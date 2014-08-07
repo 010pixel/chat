@@ -133,6 +133,7 @@
 			}
 			$return['timeago'] = $time_ago;
 			$return['class'] = ( $value['user_id'] == $this->current_user_id ) ? 'current' : '';
+			$return['msg'] = str_replace("\n","<br />",$value['msg']);
 			return $return;
 		}
 		
