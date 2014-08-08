@@ -56,11 +56,34 @@
 			}
 		}
 		
+		public function delete_msg () {
+			if ( $_SESSION['user']['d'] != 1 ) return;
+			$this->ajax_load = true;
+			if ($_SERVER["REQUEST_METHOD"] !== "POST") return;
+			$msg_id = $_POST['msg_id'];
+			$chat_id = $_POST['chat_id'];
+			
+			$this->db->begin_transaction();
+			$result1 = $this->db->delete('messages', array('id'=>$msg_id), array('%d'));
+			
+			$this->page_add_value('msg_id',$msg_id);
+			$this->page_add_value('result1',$result1);
+			if ( $result1 !== false && $result1 !== -1 ) {
+				$this->db->commit_transaction();
+				$this->page_add_value('result','1');
+				$this->get_messages($chat_id);
+			} else {
+				$this->db->rollback_transaction();
+				$this->page_add_value('result','0');
+			}
+		}
+		
 		public function submit_msg () {
 			if ( !$_SESSION['user']['w'] ) return;
 			$this->ajax_load = true;
 			if ($_SERVER["REQUEST_METHOD"] !== "POST") return;
 			$message = $_GET['message'];
+			if ( empty($message) ) return;
 			$chat_id = $_GET['chat_id'];
 			
 			$result = $this->db->insert('messages', array('msg'=>$message, 'chat_id'=>$chat_id, 'user_id'=>$this->current_user_id), array('%s','%d','%d'));

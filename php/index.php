@@ -24,6 +24,8 @@
 		$chat->create_chat();
 	} elseif ($page->process == 'delete_chat' ) {
 		$chat->delete_chat();
+	} elseif ($page->process == 'delete_msg' ) {
+		$chat->delete_msg();
 	}
 
 	$page->add_value("timezone",date_default_timezone_get());

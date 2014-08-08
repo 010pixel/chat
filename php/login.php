@@ -13,11 +13,14 @@
 			
 			$sql = "SELECT * from `". DB_NAME ."`.`users` WHERE `email` = '". $username ."' AND `password` = '". md5($password) ."' LIMIT 1";
 			$results = $db->get_results($sql,ARRAY_A);
-			$_SESSION['user'] = $results[0];
-			
-			$page = ROOT_DIR_URL;
-			$sec = "0";
-			header("Refresh: $sec; url=$page");
+			if ( empty($results) ) {
+				$err_msg = "Please try again.";
+			} else {
+				$_SESSION['user'] = $results[0];
+				$page = ROOT_DIR_URL;
+				$sec = "0";
+				header("Refresh: $sec; url=$page");
+			}
 		}
 	}
 ?>

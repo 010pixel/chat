@@ -1,14 +1,21 @@
                     <div class="messages" ng-show="hasMessages">
-                    	<div>&nbsp;&nbsp;&nbsp;<button type="button" class="btn back-to-list btn-default">Back</button></div>
+                    	<div class="actions">
+                        	<button type="button" class="btn back-to-list btn-default">Back</button>
+                            <!--button type="button" class="btn action-delete btn-danger" chatid="{{data.chat.id}}">Delete</button>
+                            <button type="button" class="btn action-edit btn-info" chatid="{{data.chat.id}}">Edit</button-->
+                        </div>
                         <h1>{{data.chat.name}}</h1>
                         <ul>
                             <li ng-repeat="result in messages">
                                 <div class="time" ng-show="result.timeago"><span>{{result.timeago}}</span></div>
-                                <div class="{{result.class}}" ng-bind-html-unsafe="result.msg"><pre class="msg-pre">{{result.msg}}</pre><small>{{result.timestamp*1000 | date:'H:mm'}}</small></div>
+                                <div class="{{result.class}}"  msgid="{{result.id}}">
+                                	<div ng-bind-html-unsafe="result.msg">{{result.msg}}</div>
+                                    <small>{{result.timestamp*1000 | date:'H:mm'}}</small>
+                                </div>
                             </li>
                         </ul>
                         <div class="input">
-                            <form name="msgs_form" ng-submit="submitData(chat_form,'form_data')">
+                            <form name="msgs_form" ng-submit="submitMessage(chat_form,'form_data')">
                                 <textarea placeholder="enter text here.." class="form-control expanding" rows="3" ng-model="form_message" required ></textarea>
                                 <button type="submit" class="btn btn-success btn-block" ng-disabled="chat_form.$invalid">Send</button>
                             </form>
